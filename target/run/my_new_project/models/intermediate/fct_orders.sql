@@ -10,8 +10,8 @@
 
     
 
-    merge into curated.dev.fct_orders as DBT_INTERNAL_DEST
-        using curated.dev.fct_orders__dbt_tmp as DBT_INTERNAL_SOURCE
+    merge into PC_DBT_DB.dbt_EUzoefuna.fct_orders as DBT_INTERNAL_DEST
+        using PC_DBT_DB.dbt_EUzoefuna.fct_orders__dbt_tmp as DBT_INTERNAL_SOURCE
         on (
                 DBT_INTERNAL_SOURCE.order_id = DBT_INTERNAL_DEST.order_id
             )

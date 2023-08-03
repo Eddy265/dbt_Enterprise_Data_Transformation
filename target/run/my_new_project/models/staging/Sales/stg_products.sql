@@ -1,5 +1,5 @@
 
-  create or replace   view curated.dev.stg_products
+  create or replace   view PC_DBT_DB.dbt_EUzoefuna.stg_products
   
    as (
     select 

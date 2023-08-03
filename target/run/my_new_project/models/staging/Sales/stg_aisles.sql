@@ -1,5 +1,5 @@
 
-  create or replace   view curated.dev.stg_aisles
+  create or replace   view PC_DBT_DB.dbt_EUzoefuna.stg_aisles
   
    as (
     --USE WAREHOUSE Enterprise_Data_Integration;

@@ -1,5 +1,5 @@
 
-  create or replace   view curated.dev.stg_customers
+  create or replace   view PC_DBT_DB.dbt_EUzoefuna.stg_customers
   
    as (
     SELECT customer_id,

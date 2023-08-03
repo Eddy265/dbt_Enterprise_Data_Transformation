@@ -2,10 +2,10 @@
 
 
 WITH products as (
-    select * from curated.dev.stg_products 
+    select * from PC_DBT_DB.dbt_EUzoefuna.stg_products 
 ),
 orders as (
-    select * from curated.dev.fct_orders 
+    select * from PC_DBT_DB.dbt_EUzoefuna.fct_orders 
 ),
 rev_orders as (
     select 

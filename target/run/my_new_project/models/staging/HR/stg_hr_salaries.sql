@@ -1,5 +1,5 @@
 
-  create or replace   view curated.dev.stg_hr_salaries
+  create or replace   view PC_DBT_DB.dbt_EUzoefuna.stg_hr_salaries
   
    as (
     SELECT 

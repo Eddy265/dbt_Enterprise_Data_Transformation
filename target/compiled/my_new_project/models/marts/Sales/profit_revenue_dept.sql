@@ -3,17 +3,17 @@
 
 WITH pro AS (
   SELECT *
-  FROM curated.dev.stg_products
+  FROM PC_DBT_DB.dbt_EUzoefuna.stg_products
 ),
 departments AS (
   SELECT *
-  FROM curated.dev.stg_department
+  FROM PC_DBT_DB.dbt_EUzoefuna.stg_department
 ),
 orders as (
-    select * from curated.dev.fct_orders
+    select * from PC_DBT_DB.dbt_EUzoefuna.fct_orders
 ),
 aisles as (
-  select * from curated.dev.stg_aisles
+  select * from PC_DBT_DB.dbt_EUzoefuna.stg_aisles
 )
 SELECT  
 	    department,

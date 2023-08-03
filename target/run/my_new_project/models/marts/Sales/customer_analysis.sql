@@ -2,18 +2,18 @@
   
     
 
-        create or replace transient table curated.dev.customer_analysis
+        create or replace transient table PC_DBT_DB.dbt_EUzoefuna.customer_analysis
          as
         (
 
 WITH products AS (
-    SELECT * FROM curated.dev.stg_products
+    SELECT * FROM PC_DBT_DB.dbt_EUzoefuna.stg_products
 ),
 orders AS (
-    SELECT * FROM curated.dev.fct_orders
+    SELECT * FROM PC_DBT_DB.dbt_EUzoefuna.fct_orders
 ),
 customers AS (
-    SELECT * FROM curated.dev.stg_customers
+    SELECT * FROM PC_DBT_DB.dbt_EUzoefuna.stg_customers
 ),
 product_purchase_count AS (
     SELECT

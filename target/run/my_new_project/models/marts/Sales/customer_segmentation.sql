@@ -2,27 +2,27 @@
   
     
 
-        create or replace transient table curated.dev.customer_segmentation
+        create or replace transient table PC_DBT_DB.dbt_EUzoefuna.customer_segmentation
          as
         (-- Customer Segmentation based on Total Spend and Order Frequency
 
 
 
 WITH customers AS (
-    SELECT * FROM curated.dev.stg_customers
+    SELECT * FROM PC_DBT_DB.dbt_EUzoefuna.stg_customers
 ),
 customer_spend AS (
     SELECT
         customer_id,
         SUM(order_total_amount) AS total_spend
-    FROM curated.dev.fct_orders
+    FROM PC_DBT_DB.dbt_EUzoefuna.fct_orders
     GROUP BY customer_id
 ),
 customer_orders AS (
     SELECT
         customer_id,
         COUNT(DISTINCT order_id) AS order_frequency
-    FROM curated.dev.fct_orders
+    FROM PC_DBT_DB.dbt_EUzoefuna.fct_orders
     GROUP BY customer_id
 ),
 customer_segmentation AS (

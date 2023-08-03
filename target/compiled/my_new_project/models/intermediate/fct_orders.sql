@@ -2,7 +2,7 @@
 
 WITH product AS (
     SELECT product_id, unit_price, unit_cost
-    FROM curated.dev.stg_products 
+    FROM PC_DBT_DB.dbt_EUzoefuna.stg_products 
 ),
 
 orders AS (
@@ -11,7 +11,7 @@ orders AS (
            product_id,
            quantity,
            order_date
-    FROM curated.dev.stg_orders
+    FROM PC_DBT_DB.dbt_EUzoefuna.stg_orders
 ),
 
 FINAL AS (
@@ -27,7 +27,7 @@ FINAL AS (
     FROM product p 
     JOIN orders o ON p.product_id = o.product_id
     
-    WHERE order_id >= (SELECT max(order_id) FROM curated.dev.fct_orders)
+    WHERE order_id >= (SELECT max(order_id) FROM PC_DBT_DB.dbt_EUzoefuna.fct_orders)
     
     ORDER BY order_id DESC
 )
