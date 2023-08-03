@@ -12,7 +12,7 @@ renamed as (
         order_hour_of_day,
         days_since_prior_order,
         product_id,
-        quantity as order_quantity,
+        quantity,
         order_date,
         order_status
     from source
