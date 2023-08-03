@@ -1,0 +1,28 @@
+version: 2
+
+sources:
+  - name: HR
+    description: a clone of the postgres HR database.
+    database: HR
+    schema: public
+    tables:
+      - name: contacts
+        description: This is the contacts table of the employees     
+
+      - name: departments
+        description: This is the departments table of the employeescd
+
+      - name: employees
+        description: This is the employees table
+        
+      - name: positions
+        description: This is the table that contains all the different positions in the organization
+
+      - name: salaries
+        description: This tabes hold all the salaries for all employees
+        
+      - name: employeechurn
+        description: This is the employeechurn table. 
+
+  
+    

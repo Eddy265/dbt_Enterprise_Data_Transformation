@@ -1,0 +1,7 @@
+{
+    "dbt.queryLimit": 500,
+    "workbench.colorCustomizations": {
+        "sash.hoverBorder": "#93e6fc"
+    },
+    "peacock.color": "#61dafb"
+}
