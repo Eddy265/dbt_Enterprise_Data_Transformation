@@ -2,11 +2,18 @@
   create or replace   view PC_DBT_DB.dbt_EUzoefuna.stg_aisles
   
    as (
-    --USE WAREHOUSE Enterprise_Data_Integration;
+    WITH source AS (
 
-SELECT 
+    SELECT * FROM Instacart.public.aisles
+),
+
+renamed as (
+    SELECT 
     aisle_id,
     aisle
-FROM Instacart.public.aisles
+FROM source
+)
+
+SELECT * FROM renamed
   );
 

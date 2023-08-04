@@ -1,6 +1,14 @@
---USE WAREHOUSE Enterprise_Data_Integration;
 
-SELECT 
+WITH source AS (
+
+    SELECT * FROM {{ source('Instacart', 'aisles') }}
+),
+
+renamed as (
+    SELECT 
     aisle_id,
     aisle
-FROM {{ source('Instacart', 'aisles') }}
+FROM source
+)
+
+SELECT * FROM renamed

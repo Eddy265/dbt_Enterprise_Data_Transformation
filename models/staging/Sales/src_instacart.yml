@@ -43,13 +43,13 @@ sources:
         description: raw data for the orders table
         columns:
           - name: order_id
-            description: primary key for the aisles table
+            description: primary key for the orders table
             tests: 
               - unique
               - not_null
 
           - name: order_status
-            description: column for the status of orders
+            description: '{{ doc("order_status") }}'
             tests:
               - accepted_values:
                   values:
