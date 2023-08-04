@@ -2,8 +2,18 @@
   create or replace   view PC_DBT_DB.dbt_EUzoefuna.stg_department
   
    as (
-    select 
+    WITH source AS (
+    SELECT 
     *
-from Instacart.public.department
+    FROM Instacart.public.department
+),
+renamed AS (
+    SELECT 
+    department_id,
+    department
+    FROM source
+)
+
+SELECT * FROM renamed
   );
 

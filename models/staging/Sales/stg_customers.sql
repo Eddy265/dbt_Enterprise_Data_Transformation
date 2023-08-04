@@ -1,7 +1,14 @@
+WITH source AS (
 
-SELECT customer_id,
+    SELECT * FROM {{ source('Instacart', 'customers') }}
+),
+name_merge AS (
+    SELECT customer_id,
         CONCAT(first_name, ' ', last_name) AS customer_name,
         email,
         address,
         phone_number
-FROM {{ source('Instacart', 'customers') }}
+FROM source
+)
+
+SELECT * FROM name_merge

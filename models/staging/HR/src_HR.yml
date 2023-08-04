@@ -8,12 +8,27 @@ sources:
     tables:
       - name: contacts
         description: This is the contacts table of the employees     
-
+        columns:
+          - name: contact_id
+            description: primary key for the contacts
+            tests:
+              - unique
+              - not_null
+              
       - name: departments
         description: This is the departments table of the employeescd
 
       - name: employees
         description: This is the employees table
+        columns:
+          - name: employee_id
+            description: primary key for the employee table
+            tests:
+              - unique
+              - not_null
+              - relationships:
+                  to: ref('HR', 'contacts')
+                  field: employee_id
         
       - name: positions
         description: This is the table that contains all the different positions in the organization
