@@ -27,8 +27,6 @@ FINAL AS (
     FROM product p 
     JOIN orders o ON p.product_id = o.product_id
     
-    WHERE order_id >= (SELECT max(order_id) FROM PC_DBT_DB.dbt_EUzoefuna.fct_orders)
-    
     ORDER BY order_id DESC
 )
 

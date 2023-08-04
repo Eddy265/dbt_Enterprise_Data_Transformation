@@ -46,13 +46,20 @@ churned_customers AS (
 SELECT
     cust.customer_id,
     cust.customer_name,
+    cust.country,
     churned_customers.churn_status,
     p.product_name AS most_preferred_product,
     c.total_purchase_count,
     SUM(o.order_total_amount) AS total_spend,
     COUNT(DISTINCT o.order_id) AS total_orders,
     SUM(o.order_total_amount) / COUNT(DISTINCT o.order_id) AS average_spend,
-    ROUND((CLTV.coefficient * SUM(o.order_total_amount) / COUNT(DISTINCT o.order_id)), 2) AS cltv
+    ROUND((CLTV.coefficient * SUM(o.order_total_amount) / COUNT(DISTINCT o.order_id)), 2) AS cltv,
+    CASE
+            WHEN SUM(o.order_total_amount) >= 160000 AND COUNT(DISTINCT o.order_id) >= 1100 THEN 'High-Value Frequent'
+            WHEN SUM(o.order_total_amount) >= 155000 AND COUNT(DISTINCT o.order_id) < 1100 THEN 'High-Value Occasional'
+            WHEN SUM(o.order_total_amount) < 150000 AND COUNT(DISTINCT o.order_id) >= 10 THEN 'Low-Value Frequent'
+            ELSE 'Low-Value Occasional'
+        END AS customer_segment
 FROM customer_most_preferred_product c
 JOIN customers cust ON c.customer_id = cust.customer_id
 JOIN products p ON c.most_preferred_product = p.product_id
@@ -60,7 +67,7 @@ JOIN orders o ON cust.customer_id = o.customer_id
 JOIN (SELECT customer_id, AVG(order_total_amount) AS coefficient FROM orders GROUP BY customer_id) CLTV ON cust.customer_id = CLTV.customer_id
 LEFT JOIN churned_customers ON cust.customer_id = churned_customers.customer_id
 WHERE c.rn = 1
-GROUP BY cust.customer_id, cust.customer_name, churned_customers.churn_status, p.product_name, c.total_purchase_count, CLTV.coefficient
+GROUP BY cust.customer_id, cust.customer_name, churned_customers.churn_status, p.product_name, c.total_purchase_count, CLTV.coefficient, cust.country
 ORDER BY cust.customer_id
         );
       

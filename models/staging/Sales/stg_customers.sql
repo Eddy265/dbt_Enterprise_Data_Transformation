@@ -7,7 +7,9 @@ name_merge AS (
         CONCAT(first_name, ' ', last_name) AS customer_name,
         email,
         address,
-        phone_number
+        phone_number,
+        city,
+        country
 FROM source
 )
 
