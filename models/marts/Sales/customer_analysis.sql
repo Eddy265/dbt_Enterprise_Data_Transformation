@@ -49,7 +49,7 @@ SELECT
     c.total_purchase_count,
     SUM(o.order_total_amount) AS total_spend,
     COUNT(DISTINCT o.order_id) AS total_orders,
-    SUM(o.order_total_amount) / COUNT(DISTINCT o.order_id) AS average_spend,
+    ROUND(SUM(o.order_total_amount) / COUNT(DISTINCT o.order_id),2) AS average_spend,
     ROUND((CLTV.coefficient * SUM(o.order_total_amount) / COUNT(DISTINCT o.order_id)), 2) AS cltv,
     CASE
             WHEN SUM(o.order_total_amount) >= 160000 AND COUNT(DISTINCT o.order_id) >= 1100 THEN 'High-Value Frequent'

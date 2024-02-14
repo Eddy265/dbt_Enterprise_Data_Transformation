@@ -18,7 +18,8 @@ renamed as (
         product_id,
         quantity,
         order_date,
-        order_status
+        order_status,
+        delivery_date
     from source
 )
 

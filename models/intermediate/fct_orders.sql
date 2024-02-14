@@ -15,7 +15,9 @@ orders AS (
            customer_id,
            product_id,
            quantity,
-           order_date
+           order_date,
+           order_status,
+           delivery_date
     FROM {{ ref('stg_orders') }}
 ),
 
@@ -27,12 +29,14 @@ FINAL AS (
            o.quantity,
            p.unit_price,
            p.unit_cost,
+           o.order_status,
+           o.delivery_date,
            o.quantity * p.unit_price AS order_total_amount,
-           p.unit_price - p.unit_cost AS profit 
+           (p.unit_price - p.unit_cost) * quantity AS profit 
     FROM product p 
     JOIN orders o ON p.product_id = o.product_id
     {% if is_incremental() %}
-    WHERE order_id >= (SELECT max(order_id) FROM {{ this }})
+    --WHERE order_id >= (SELECT max(order_id) FROM {{ this }})
     {% endif %}
     ORDER BY order_id DESC
 )

@@ -14,9 +14,9 @@ renamed as (
         product_id,
         quantity,
         order_date,
-        order_status
-    from source
-)
+        order_status,
+        delivery_date
+    from source)
 
 select * from renamed
 

@@ -1,42 +1,30 @@
-
+-- back compat for old kwarg name
   
+  begin;
+    
+        
+            
+            
+        
     
 
-        create or replace transient table PC_DBT_DB.dbt_EUzoefuna.fct_orders
-         as
-        (
-
-WITH product AS (
-    SELECT product_id, unit_price, unit_cost
-    FROM PC_DBT_DB.dbt_EUzoefuna.stg_products 
-),
-
-orders AS (
-    SELECT order_id,
-           customer_id,
-           product_id,
-           quantity,
-           order_date
-    FROM PC_DBT_DB.dbt_EUzoefuna.stg_orders
-),
-
-FINAL AS (
-    SELECT o.order_id, 
-           o.customer_id,
-           o.product_id,
-           o.order_date,
-           o.quantity,
-           p.unit_price,
-           p.unit_cost,
-           o.quantity * p.unit_price AS order_total_amount,
-           p.unit_price - p.unit_cost AS profit 
-    FROM product p 
-    JOIN orders o ON p.product_id = o.product_id
     
-    ORDER BY order_id DESC
-)
 
-SELECT * FROM FINAL
-        );
-      
-  
+    merge into PC_DBT_DB.dbt_EUzoefuna.fct_orders as DBT_INTERNAL_DEST
+        using PC_DBT_DB.dbt_EUzoefuna.fct_orders__dbt_tmp as DBT_INTERNAL_SOURCE
+        on (
+                DBT_INTERNAL_SOURCE.order_id = DBT_INTERNAL_DEST.order_id
+            )
+
+    
+    when matched then update set
+        "ORDER_ID" = DBT_INTERNAL_SOURCE."ORDER_ID","CUSTOMER_ID" = DBT_INTERNAL_SOURCE."CUSTOMER_ID","PRODUCT_ID" = DBT_INTERNAL_SOURCE."PRODUCT_ID","ORDER_DATE" = DBT_INTERNAL_SOURCE."ORDER_DATE","QUANTITY" = DBT_INTERNAL_SOURCE."QUANTITY","UNIT_PRICE" = DBT_INTERNAL_SOURCE."UNIT_PRICE","UNIT_COST" = DBT_INTERNAL_SOURCE."UNIT_COST","ORDER_STATUS" = DBT_INTERNAL_SOURCE."ORDER_STATUS","DELIVERY_DATE" = DBT_INTERNAL_SOURCE."DELIVERY_DATE","ORDER_TOTAL_AMOUNT" = DBT_INTERNAL_SOURCE."ORDER_TOTAL_AMOUNT","PROFIT" = DBT_INTERNAL_SOURCE."PROFIT"
+    
+
+    when not matched then insert
+        ("ORDER_ID", "CUSTOMER_ID", "PRODUCT_ID", "ORDER_DATE", "QUANTITY", "UNIT_PRICE", "UNIT_COST", "ORDER_STATUS", "DELIVERY_DATE", "ORDER_TOTAL_AMOUNT", "PROFIT")
+    values
+        ("ORDER_ID", "CUSTOMER_ID", "PRODUCT_ID", "ORDER_DATE", "QUANTITY", "UNIT_PRICE", "UNIT_COST", "ORDER_STATUS", "DELIVERY_DATE", "ORDER_TOTAL_AMOUNT", "PROFIT")
+
+;
+    commit;
